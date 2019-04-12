@@ -2,7 +2,6 @@ const db = require('../knexConfig.js');
 const Games = require('./router.js');
 
 
-
 describe('game route tests', () => {
     beforeEach(async () => { // Clean up db before every run
         await db('games').truncate();
@@ -57,7 +56,31 @@ describe('game route tests', () => {
             const gamesAfterDelete = await db('games')
             expect(gamesAfterDelete).toHaveLength(0)
         })
-    })
 
+        it('should add a 3 records to games, then remove index 2 and have 2, check genre of new index 2', async () => {
+            await Games.insert({
+                title:'Mortal Kombat 2',
+                genre:'cabinet', 
+                releaseYear:1999
+            })
+            await Games.insert({
+                title:'Terminator 2',
+                genre:'cabinet', 
+                releaseYear:1991
+            })
+            await Games.insert({
+                title:'TMNT IV: Turtles in Time',
+                genre:'SNES', 
+                releaseYear:1992
+            })
+            const games = await db('games')
+            expect(games).toHaveLength(3)
+
+            await Games.remove(2)
+            const gamesAfterDelete = await db('games')
+            expect(gamesAfterDelete).toHaveLength(2)
+            expect(gamesAfterDelete[1].genre).toBe('SNES')
+        })
+    })
 })
 

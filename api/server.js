@@ -22,7 +22,7 @@ server.get('/games', async (req, res) => {
 server.post('/games', async (req, res) => {
     if (!req.body.title || !req.body.genre) { 
         return res.status(400).json({ 
-            message:"Please include a title and genre to create a new game" 
+            message:"Please include a title and genre to create a new game"
         })
     }
     try {
@@ -32,10 +32,6 @@ server.post('/games', async (req, res) => {
         res.status(500).json({ message:error });
     }
 })
-
-
-
-
 
 
 

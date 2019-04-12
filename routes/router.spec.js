@@ -37,6 +37,18 @@ describe('game route tests', () => {
         });
     });
 
+    describe('getAll() from games', () => {
+        it('should count list of games and it should be zero', async () => {
+            const games = await Games.getAll()
+            const gamesLength = games.length
+            expect(gamesLength).toBe(0)
+        })
+        it('should count list of games and it should be an empty array', async () => {
+            const games = await Games.getAll()
+            expect(games).toEqual(expect.arrayContaining([]))
+        })
+    })
+
     describe('delete() from games', () => {
         it('games should be zero at start', async () => {
             const games = await db('games');
@@ -82,5 +94,6 @@ describe('game route tests', () => {
             expect(gamesAfterDelete[1].genre).toBe('SNES')
         })
     })
+
 })
 

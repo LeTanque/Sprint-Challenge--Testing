@@ -5,6 +5,7 @@ module.exports = {
     insert,
     remove,
     getAll,
+    getById
 };
 
 async function insert(game) {
@@ -27,3 +28,9 @@ async function getAll() {
     return db('games')
 }
 
+function getById(id) {
+    return db('games')
+      .where({ id })
+      .first();
+  }
+  

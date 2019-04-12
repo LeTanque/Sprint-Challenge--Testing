@@ -20,6 +20,24 @@ describe('server.js', () => {
     })
 
 
+    describe('GET /games/:id', () => { // Non async/await style
+        it('should respond with a 200 and json', (done) => {
+            request(server)
+                .get('/games/1')
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/i)
+                .expect(200, done);
+        });
+        it('should respond with a 404, game not found', (done) => {
+            request(server)
+                .get('/games/1a0a')
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/i)
+                .expect(404, done);
+        });
+    });
+
+
     describe('POST /games', () => {
         it('should respond with 422 (because no body supplied)', async () => {
             const response = await request(server).post('/games');
@@ -41,17 +59,6 @@ describe('server.js', () => {
         })
     })
 
-
-
-
-
-
-    // describe('DELETE /games/:id', () => {
-    //     it('should respond with 204 OK', async () => {
-    //         const response = await request(server).delete('/games/:id');
-    //         expect(response.status).toBe(204);
-    //     })
-    // })
 
 })
 

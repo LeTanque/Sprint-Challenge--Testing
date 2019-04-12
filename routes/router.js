@@ -2,10 +2,8 @@ const db = require('../knexConfig.js');
 
 module.exports = {
   insert,
-//   update,
   remove,
   getAll,
-//   findById,
 };
 
 async function insert(game) {
@@ -15,10 +13,6 @@ async function insert(game) {
     .where({ id })
     .first();
 }
-
-// async function update(id, changes) {
-//   return null;
-// }
 
 function remove(id) {
   return db('games')
@@ -30,6 +24,3 @@ function getAll() {
   return db('games');
 }
 
-// function findById(id) {
-//   return null;
-// }
